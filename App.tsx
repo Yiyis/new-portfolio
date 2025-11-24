@@ -84,7 +84,12 @@ const App: React.FC = () => {
       />
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center pointer-events-none">
+      <motion.nav 
+        className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center pointer-events-none"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: !showSplash ? 0 : -100, opacity: !showSplash ? 1 : 0 }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+      >
         <div className="pointer-events-auto">
           <button onClick={() => handleNavClick('home')} className="flex items-center gap-4 group cursor-hover-trigger text-left">
             <span className="text-xl md:text-2xl font-serif italic font-medium tracking-tight group-hover:text-water-600 transition-colors">
@@ -110,7 +115,7 @@ const App: React.FC = () => {
           <button onClick={() => handleNavClick('home')} className={`text-[10px] uppercase tracking-[0.2em] transition-colors cursor-hover-trigger font-bold ${view === 'home' || view === 'project' ? 'text-water-600' : 'text-slate-900 hover:text-water-500'}`}>Work</button>
           <button onClick={() => handleNavClick('about')} className={`text-[10px] uppercase tracking-[0.2em] transition-colors cursor-hover-trigger font-bold ${view === 'about' ? 'text-water-600' : 'text-slate-900 hover:text-water-500'}`}>About</button>
         </div>
-      </nav>
+      </motion.nav>
 
       <main className="flex-grow relative flex items-center justify-center w-full h-screen">
         
@@ -136,10 +141,10 @@ const App: React.FC = () => {
                 <motion.div 
                     key="home"
                     className="w-full h-full flex items-center justify-center max-w-7xl mx-auto px-4 md:px-8"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: showSplash ? 0 : 0.3 }}
                 >
                     {/* Previous Button (Home Only) */}
                     <button 
@@ -234,7 +239,12 @@ const App: React.FC = () => {
 
       {/* Footer (Hidden in Project View to maximize reading space) */}
       {view !== 'project' && (
-        <footer className="fixed bottom-0 left-0 w-full z-40 px-6 py-6 md:px-12 md:py-8 flex flex-col md:flex-row justify-between items-center md:items-end pointer-events-none text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">
+        <motion.footer 
+          className="fixed bottom-0 left-0 w-full z-40 px-6 py-6 md:px-12 md:py-8 flex flex-col md:flex-row justify-between items-center md:items-end pointer-events-none text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500"
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: !showSplash ? 0 : 100, opacity: !showSplash ? 1 : 0 }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+        >
             <div className="pointer-events-auto order-2 md:order-1 mt-2 md:mt-0 text-center md:text-left">
                 <span>UI/UX & Frontend Developer</span>
             </div>
@@ -244,7 +254,7 @@ const App: React.FC = () => {
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-water-600 transition-colors cursor-hover-trigger">Github</a>
                 <a href="mailto:hello@example.com" className="hover:text-water-600 transition-colors cursor-hover-trigger">Email</a>
             </div>
-        </footer>
+        </motion.footer>
       )}
     </div>
   );
