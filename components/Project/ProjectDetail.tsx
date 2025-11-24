@@ -42,7 +42,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
                 >
-                    {project.tags.map((tag, i) => (
+                    {project.tags?.map((tag, i) => (
                         <span key={i} className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] uppercase tracking-widest font-medium rounded-full">
                             {tag}
                         </span>
