@@ -83,11 +83,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
                     <div className="lg:col-span-1 space-y-6 text-sm">
                         <div>
                             <h3 className="uppercase tracking-widest font-bold text-slate-400 mb-2">Role</h3>
-                            <p className="text-slate-800">Lead Designer & Developer</p>
+                            <p className="text-slate-800">{project.role}</p>
                         </div>
                         <div>
                             <h3 className="uppercase tracking-widest font-bold text-slate-400 mb-2">Year</h3>
-                            <p className="text-slate-800">2024</p>
+                            <p className="text-slate-800">{project.year}</p>
                         </div>
                     </div>
                 </div>

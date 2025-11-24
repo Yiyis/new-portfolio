@@ -22,6 +22,8 @@ export interface Project {
   // We can type fullDetails properly if we add a PortableText renderer later, 
   // for now we'll keep it as any or simple array for the mock.
   fullDetails?: any[]; 
+  role: string;
+  year: number;
 }
 
 export interface SiteSettings {
