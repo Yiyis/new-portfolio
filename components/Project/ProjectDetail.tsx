@@ -11,67 +11,89 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   return (
     <motion.div 
-      className="w-full h-full bg-[#fcfcfc] overflow-y-auto no-scrollbar relative"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full h-full bg-[#fcfcfc] overflow-y-auto no-scrollbar relative z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      {/* Full Screen Hero Image with Shared Layout ID */}
+      <motion.div 
+        layoutId={`project-image-${project._id}`}
+        className="fixed top-0 left-0 w-full h-[60vh] lg:h-[70vh] overflow-hidden z-0"
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      >
+         <img 
+            src={project.heroImage?.asset?.url} 
+            alt={project.heroImage?.alt || project.title}
+            className="w-full h-full object-cover"
+         />
+         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#fcfcfc]/90"></div>
+      </motion.div>
+
+      {/* Back Button - Fixed */}
+      <div className="fixed top-24 left-6 md:left-12 z-50 mix-blend-difference text-white">
         <button 
             onClick={onBack}
-            className="group flex items-center space-x-2 text-xs uppercase tracking-widest font-bold text-slate-500 hover:text-water-600 transition-colors mb-12 cursor-hover-trigger"
+            className="group flex items-center space-x-2 text-xs uppercase tracking-widest font-bold hover:text-water-300 transition-colors cursor-hover-trigger"
         >
             <ArrowLeft size={16} className="transform group-hover:-translate-x-1 transition-transform" />
             <span>Back to Work</span>
         </button>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-20">
-            <div>
-                <motion.h1 
-                    className="text-5xl md:text-7xl lg:text-8xl font-serif italic text-slate-900 mb-8 leading-[0.9] tracking-tight"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                >
+      {/* Content Container - Scrolls over the hero */}
+      <div className="relative z-10 mt-[50vh] lg:mt-[60vh] px-6 md:px-12 pb-24">
+        <div className="max-w-7xl mx-auto bg-[#fcfcfc] p-8 md:p-16 rounded-t-3xl shadow-xl min-h-screen">
+            <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+            >
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif italic text-slate-900 mb-8 leading-[0.9] tracking-tight">
                     {project.title}
-                </motion.h1>
-                <motion.div 
-                    className="flex flex-wrap gap-2 mb-8"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                >
+                </h1>
+                
+                <div className="flex flex-wrap gap-2 mb-8">
                     {project.tags?.map((tag, i) => (
                         <span key={i} className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] uppercase tracking-widest font-medium rounded-full">
                             {tag}
                         </span>
                     ))}
-                </motion.div>
-                <motion.p 
-                    className="text-lg md:text-xl text-slate-600 font-light leading-relaxed"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                >
-                    {project.shortDescription}
-                </motion.p>
-            </div>
-            <div className="relative aspect-[4/3] lg:aspect-square bg-water-50 overflow-hidden rounded-lg">
-                 {/* In a real scenario, this might use the distorted image or a high-res static one */}
-                 <img 
-                    src={project.heroImage?.asset?.url} 
-                    alt={project.heroImage?.alt || project.title}
-                    className="w-full h-full object-cover"
-                 />
-            </div>
-        </div>
+                </div>
 
-        {/* Content Placeholder */}
-        <div className="prose prose-lg prose-slate max-w-4xl mx-auto">
-            <p className="text-slate-400 text-center italic">
-                Full case study content would be rendered here using PortableText...
-            </p>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+                    <div className="lg:col-span-2">
+                        <p className="text-xl md:text-2xl text-slate-600 font-light leading-relaxed">
+                            {project.shortDescription}
+                        </p>
+                    </div>
+                    <div className="lg:col-span-1 space-y-6 text-sm">
+                        <div>
+                            <h3 className="uppercase tracking-widest font-bold text-slate-400 mb-2">Role</h3>
+                            <p className="text-slate-800">Lead Designer & Developer</p>
+                        </div>
+                        <div>
+                            <h3 className="uppercase tracking-widest font-bold text-slate-400 mb-2">Year</h3>
+                            <p className="text-slate-800">2024</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Detailed Content Placeholder */}
+                <div className="prose prose-lg prose-slate max-w-4xl mx-auto mt-16">
+                    <p>
+                        This is where the detailed project case study would go. It can include images, text, videos, and more.
+                        The hero image above transitions seamlessly from the home page blob.
+                    </p>
+                    <div className="w-full aspect-video bg-slate-100 rounded-lg my-8 flex items-center justify-center text-slate-400">
+                        Project Gallery / Video Placeholder
+                    </div>
+                    <p>
+                        More details about the process, challenges, and solution...
+                    </p>
+                </div>
+            </motion.div>
         </div>
       </div>
     </motion.div>

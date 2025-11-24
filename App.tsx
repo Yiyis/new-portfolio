@@ -8,7 +8,7 @@ import PasswordModal from './components/ui/PasswordModal';
 import ProjectDetail from './components/Project/ProjectDetail';
 import SplashLoader from './components/ui/SplashLoader';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, LayoutGroup } from 'framer-motion';
 
 const App: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -136,16 +136,17 @@ const App: React.FC = () => {
         {/* Main Content Area */}
         {!loading && (
           <div className="w-full h-full">
-            <AnimatePresence mode="wait">
-              {view === 'home' && projects.length > 0 && (
-                <motion.div 
-                    key="home"
-                    className="w-full h-full flex items-center justify-center max-w-7xl mx-auto px-4 md:px-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: showSplash ? 0 : 0.3 }}
-                >
+            <LayoutGroup>
+              <AnimatePresence mode="wait">
+                {view === 'home' && projects.length > 0 && (
+                  <motion.div 
+                      key="home"
+                      className="w-full h-full flex items-center justify-center max-w-7xl mx-auto px-4 md:px-8"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: showSplash ? 0 : 0.3 }}
+                  >
                     {/* Previous Button (Home Only) */}
                     <button 
                       onClick={handlePrev}
@@ -219,20 +220,14 @@ const App: React.FC = () => {
               )}
 
               {view === 'project' && selectedProject && (
-                  <motion.div
+                  <ProjectDetail 
                     key="project"
-                    className="w-full h-full fixed inset-0 z-40"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                      <ProjectDetail 
-                        project={selectedProject} 
-                        onBack={() => setView('home')} 
-                      />
-                  </motion.div>
+                    project={selectedProject} 
+                    onBack={() => setView('home')} 
+                  />
               )}
-            </AnimatePresence>
+              </AnimatePresence>
+            </LayoutGroup>
           </div>
         )}
       </main>
