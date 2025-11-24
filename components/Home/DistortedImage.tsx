@@ -2,7 +2,7 @@ import React, { Component, ReactNode, useRef, useEffect, Suspense } from 'react'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
 import { useTexture, shaderMaterial } from '@react-three/drei';
 import * as THREE from 'three';
-import { motion } from 'framer-motion';
+import { motion, usePresence } from 'framer-motion';
 
 // --- Error Boundary for Texture Loading ---
 interface TextureErrorBoundaryProps {
@@ -13,7 +13,7 @@ interface TextureErrorBoundaryState {
   hasError: boolean;
 }
 
-class TextureErrorBoundary extends Component<TextureErrorBoundaryProps, TextureErrorBoundaryState> {
+class TextureErrorBoundary extends React.Component<TextureErrorBoundaryProps, TextureErrorBoundaryState> {
   state: TextureErrorBoundaryState = { hasError: false };
 
   static getDerivedStateFromError(error: any) {
@@ -126,9 +126,10 @@ extend({ WaterMaterial });
 // --- Inner Scene Component ---
 interface WaterPlaneProps {
   src: string;
+  isPresent: boolean;
 }
 
-const WaterPlane: React.FC<WaterPlaneProps> = ({ src }) => {
+const WaterPlane: React.FC<WaterPlaneProps> = ({ src, isPresent }) => {
   const materialRef = useRef<any>(null);
   const texture = useTexture(src);
   const { viewport, size } = useThree();
@@ -149,14 +150,17 @@ const WaterPlane: React.FC<WaterPlaneProps> = ({ src }) => {
     if (materialRef.current) {
       materialRef.current.uTime += delta;
       
-      // Gently settle intensity from high to normal
-      if (materialRef.current.uniforms.uIntensity.value > 1.0) {
-          materialRef.current.uniforms.uIntensity.value = THREE.MathUtils.lerp(
-              materialRef.current.uniforms.uIntensity.value, 
-              1.0, 
-              delta * 0.5 // Slower settle speed for viscous feel
-          );
-      }
+      // Target intensity Logic:
+      // If present (idle/entering), target is 0.0 (no distortion, clean image).
+      // If NOT present (exiting), target is 1.5 (ramp up distortion).
+      // The initial value on mount is 1.5, so on enter it will lerp 1.5 -> 0.0.
+      const targetIntensity = isPresent ? 0.0 : 1.5;
+
+      materialRef.current.uniforms.uIntensity.value = THREE.MathUtils.lerp(
+          materialRef.current.uniforms.uIntensity.value, 
+          targetIntensity, 
+          delta * 2.5 // Adjust speed to match transition duration
+      );
 
       if (texture && texture.image) {
          const img = texture.image as HTMLImageElement;
@@ -177,7 +181,7 @@ const WaterPlane: React.FC<WaterPlaneProps> = ({ src }) => {
         ref={materialRef} 
         uTexture={texture} 
         transparent
-        // Reduced initial intensity for a calmer entrance
+        // Start high on mount so we can settle down to 0
         uIntensity={1.5} 
       />
     </mesh>
@@ -193,6 +197,9 @@ interface DistortedImageProps {
 }
 
 const DistortedImage = React.forwardRef<HTMLDivElement, DistortedImageProps>(({ src, alt, direction = 0, disableShader = false }, ref) => {
+  // usePresence allows us to detect when the component is exiting
+  const [isPresent, safeToRemove] = usePresence();
+
   if (!src) {
     return <div ref={ref} className="w-full h-full bg-water-50/50 animate-pulse" />;
   }
@@ -230,6 +237,12 @@ const DistortedImage = React.forwardRef<HTMLDivElement, DistortedImageProps>(({ 
       initial="enter"
       animate="center"
       exit="exit"
+      onAnimationComplete={() => {
+        // We must call safeToRemove to actually unmount the component after exit animation
+        if (!isPresent && safeToRemove) {
+          safeToRemove();
+        }
+      }}
       transition={{
         x: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }, // Ultra smooth ease
         opacity: { duration: 1.2, ease: "easeInOut" },
@@ -253,7 +266,7 @@ const DistortedImage = React.forwardRef<HTMLDivElement, DistortedImageProps>(({ 
         >
           <TextureErrorBoundary>
             <Suspense fallback={null}>
-              <WaterPlane src={src} />
+              <WaterPlane src={src} isPresent={isPresent} />
             </Suspense>
           </TextureErrorBoundary>
         </Canvas>
