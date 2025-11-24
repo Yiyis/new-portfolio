@@ -1,7 +1,7 @@
 import React from 'react';
 import { Project } from '../../types';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowDown } from 'lucide-react';
 
 interface ProjectDetailProps {
   project: Project;
@@ -44,6 +44,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
 
       {/* Content Container - Scrolls over the hero */}
       <div className="relative z-10 mt-[50vh] lg:mt-[60vh] px-6 md:px-12 pb-24">
+        
+        {/* Scroll Indicator */}
+        <motion.div 
+            className="absolute -top-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/80 mix-blend-difference pointer-events-none"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.5 }}
+        >
+            <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Scroll</span>
+            <ArrowDown size={20} />
+        </motion.div>
+
         <div className="max-w-7xl mx-auto bg-[#fcfcfc] p-8 md:p-16 rounded-t-3xl shadow-xl min-h-screen">
             <motion.div
                 initial={{ opacity: 0, y: 40 }}
