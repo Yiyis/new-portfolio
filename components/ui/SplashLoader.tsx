@@ -68,32 +68,42 @@ const SplashLoader: React.FC<SplashLoaderProps> = ({ onComplete }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1B3B6F]"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1F6AA5]"
       initial={{ y: 0, opacity: 1 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: "-100%", opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
     >
       {animationReady && LottieComponent && animationData ? (
-        <div className="w-full max-w-[500px] aspect-[3/2] relative">
-          <LottieComponent
-            lottieRef={lottieRef}
-            animationData={animationData}
-            loop={false}
-            autoplay={true}
-            style={{ width: '100%', height: '100%', display: 'block' }}
-            onComplete={handleComplete}
-            onLoadedData={() => {
-              // Ensure animation plays from start
-              if (lottieRef.current) {
-                lottieRef.current.goToAndPlay(0);
-              }
-            }}
-            rendererSettings={{
-              preserveAspectRatio: 'xMidYMid meet',
-              clearCanvas: false
-            }}
-          />
+        <div className="flex flex-col items-center justify-center">
+          <div className="w-full max-w-[500px] aspect-[3/2] relative">
+            <LottieComponent
+              lottieRef={lottieRef}
+              animationData={animationData}
+              loop={false}
+              autoplay={true}
+              style={{ width: '100%', height: '100%', display: 'block' }}
+              onComplete={handleComplete}
+              onLoadedData={() => {
+                // Ensure animation plays from start
+                if (lottieRef.current) {
+                  lottieRef.current.goToAndPlay(0);
+                }
+              }}
+              rendererSettings={{
+                preserveAspectRatio: 'xMidYMid meet',
+                clearCanvas: false
+              }}
+            />
+          </div>
+          <motion.div 
+            className="mt-4 text-white/90 font-serif text-2xl md:text-3xl italic tracking-wide"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+          >
+            Hi, my name is Yiyi
+          </motion.div>
         </div>
       ) : (
         // Lightweight placeholder - shows immediately for better LCP
