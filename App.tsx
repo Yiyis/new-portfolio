@@ -78,16 +78,22 @@ const App: React.FC = () => {
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center pointer-events-none">
         <div className="pointer-events-auto">
           <button onClick={() => handleNavClick('home')} className="flex items-center gap-4 group cursor-hover-trigger text-left">
-            {/* Logo Placeholder - Replace SVG content with your own logo */}
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center text-slate-300 group-hover:border-water-200 group-hover:text-water-400 transition-all duration-300">
-               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 md:w-6 md:h-6">
-                  <circle cx="12" cy="12" r="9" />
-               </svg>
-            </div>
-            
             <span className="text-xl md:text-2xl font-serif italic font-medium tracking-tight group-hover:text-water-600 transition-colors">
               Yiyi<br/>Shao
             </span>
+          </button>
+        </div>
+        
+        {/* Logo - Centered */}
+        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-auto">
+          <button onClick={() => handleNavClick('home')} className="group cursor-hover-trigger">
+            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center overflow-hidden rounded-full group-hover:opacity-80 transition-opacity duration-300">
+               <img 
+                 src="/images/logo_black.png" 
+                 alt="Logo" 
+                 className="w-full h-full object-contain"
+               />
+            </div>
           </button>
         </div>
         

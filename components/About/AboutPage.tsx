@@ -4,8 +4,8 @@ import DistortedImage from '../Home/DistortedImage';
 import { ArrowDown } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
-  // Placeholder profile image - simplistic/artistic portrait
-  const profileImage = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop";
+  // Profile image
+  const profileImage = "/images/Yiyi.jpg";
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showIndicator, setShowIndicator] = useState(false);
