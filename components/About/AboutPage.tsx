@@ -29,7 +29,7 @@ const AboutPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 lg:gap-24 max-w-6xl mx-auto">
+    <div className="w-full h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 lg:gap-24 max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-0">
       
       {/* Blob - Left Side */}
       <div className="order-1 flex-1 flex justify-center items-center w-full">

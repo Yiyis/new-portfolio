@@ -1,6 +1,6 @@
 import React from 'react';
 import { Project } from '../../types';
-import { motion } from 'framer-motion';
+import { motion, LayoutGroup } from 'framer-motion';
 import { ArrowLeft, ArrowDown } from 'lucide-react';
 
 interface ProjectDetailProps {
