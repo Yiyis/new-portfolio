@@ -196,10 +196,10 @@ const App: React.FC = () => {
                 <span>UI/UX & Frontend Developer</span>
             </div>
             <div className="pointer-events-auto flex space-x-6 order-1 md:order-2">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-water-600 transition-colors cursor-hover-trigger">Linkedin</a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-water-600 transition-colors cursor-hover-trigger">Instagram</a>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-water-600 transition-colors cursor-hover-trigger">Github</a>
-                <a href="mailto:hello@example.com" className="hover:text-water-600 transition-colors cursor-hover-trigger">Email</a>
+                <a href="https://www.linkedin.com/in/yiyishao/" target="_blank" rel="noopener noreferrer" className="hover:text-water-600 transition-colors cursor-hover-trigger">Linkedin</a>
+                <a href="https://www.instagram.com/yiyigoeswild/" target="_blank" rel="noopener noreferrer" className="hover:text-water-600 transition-colors cursor-hover-trigger">Instagram</a>
+                <a href="https://github.com/Yiyis" target="_blank" rel="noopener noreferrer" className="hover:text-water-600 transition-colors cursor-hover-trigger">Github</a>
+                <a href="mailto:yolandayiyishao@gmail.com" className="hover:text-water-600 transition-colors cursor-hover-trigger">Email</a>
             </div>
         </motion.footer>
       )}
