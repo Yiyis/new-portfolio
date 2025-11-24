@@ -20,7 +20,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
       {/* Full Screen Hero Image with Shared Layout ID */}
       <motion.div 
         layoutId={`project-image-${project._id}`}
-        className="fixed top-0 left-0 w-full h-[60vh] lg:h-[70vh] overflow-hidden z-0"
+        className="fixed top-0 left-0 w-full h-[60vh] lg:h-[70vh] overflow-hidden z-0 pointer-events-none"
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       >
          <img 
