@@ -6,12 +6,14 @@ import BlobProject from './components/Home/BlobProject';
 import AboutPage from './components/About/AboutPage';
 import PasswordModal from './components/ui/PasswordModal';
 import ProjectDetail from './components/Project/ProjectDetail';
+import SplashLoader from './components/ui/SplashLoader';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const App: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showSplash, setShowSplash] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [view, setView] = useState<'home' | 'about' | 'project'>('home');
@@ -65,6 +67,13 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#fcfcfc] text-slate-900 overflow-hidden selection:bg-water-200 selection:text-water-900 flex flex-col">
       <CustomCursor />
+      
+      {/* Splash Loader */}
+      <AnimatePresence>
+        {showSplash && (
+          <SplashLoader key="splash" onComplete={() => setShowSplash(false)} />
+        )}
+      </AnimatePresence>
       
       {/* Modals */}
       <PasswordModal 
