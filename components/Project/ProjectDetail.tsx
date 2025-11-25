@@ -1,7 +1,7 @@
 import React from 'react';
 import { Project } from '../../types';
 import { motion, LayoutGroup } from 'framer-motion';
-import { ArrowLeft, ArrowDown } from 'lucide-react';
+import { ArrowLeft, ArrowDown, ExternalLink } from 'lucide-react';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { urlFor } from '../../services/sanityService';
 
@@ -126,6 +126,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
                             <h3 className="uppercase tracking-widest font-bold text-slate-400 mb-2">Year</h3>
                             <p className="text-slate-800">{project.year}</p>
                         </div>
+                        {project.externalUrl && (
+                          <div className="pt-4">
+                             <a 
+                               href={project.externalUrl} 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-full text-xs uppercase tracking-widest font-bold hover:bg-water-600 transition-colors cursor-hover-trigger"
+                             >
+                               Visit Site <ExternalLink size={14} />
+                             </a>
+                          </div>
+                        )}
                     </div>
                 </div>
 

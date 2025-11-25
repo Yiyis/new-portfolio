@@ -22,6 +22,7 @@ export interface Project {
   projectDetails?: any[]; // Portable Text array
   role: string;
   year: number;
+  externalUrl?: string;
 }
 
 export interface SiteSettings {

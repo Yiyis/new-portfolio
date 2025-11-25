@@ -32,7 +32,8 @@ export const getProjects = async (): Promise<Project[]> => {
     tags,
     role,
     year,
-    isProtected
+    isProtected,
+    externalUrl
   }`;
 
   try {
@@ -60,7 +61,8 @@ export const getProject = async (slug: string): Promise<Project | null> => {
     role,
     year,
     isProtected,
-    projectDetails
+    projectDetails,
+    externalUrl
   }`;
 
   try {
