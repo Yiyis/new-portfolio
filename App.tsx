@@ -193,7 +193,7 @@ const App: React.FC = () => {
       {/* Footer (Hidden in Project View to maximize reading space) */}
       {!isProject && (
         <motion.footer 
-          className="fixed bottom-0 left-0 w-full z-40 px-6 py-6 md:px-12 md:py-8 flex flex-col md:flex-row justify-between items-center md:items-end pointer-events-none text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500"
+          className="fixed bottom-0 left-0 w-full z-40 px-6 py-6 md:px-12 md:py-8 flex flex-col md:flex-row justify-between items-center md:items-end pointer-events-none text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 bg-gradient-to-t from-[#fcfcfc] via-[#fcfcfc]/90 to-transparent md:bg-none"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: !showSplash ? 0 : 100, opacity: !showSplash ? 1 : 0 }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}

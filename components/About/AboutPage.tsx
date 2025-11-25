@@ -70,7 +70,7 @@ const AboutPage: React.FC = () => {
         <motion.div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="w-full h-full text-slate-900 overflow-y-auto no-scrollbar pb-24 md:pb-0 mx-auto max-w-xl md:max-w-none"
+          className="w-full h-full text-slate-900 overflow-y-auto no-scrollbar pb-40 md:pb-0 mx-auto max-w-xl md:max-w-none"
           initial={{ opacity: 0, x: 50, filter: 'blur(8px)' }}
           animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
           exit={{ opacity: 0, x: 50, filter: 'blur(8px)' }}
@@ -140,12 +140,12 @@ const AboutPage: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute bottom-0 left-0 w-full h-32 pointer-events-none bg-gradient-to-t from-[#fcfcfc] via-[#fcfcfc]/80 to-transparent flex flex-col justify-end items-center pb-8 z-20"
+              className="absolute bottom-0 left-0 w-full h-48 md:h-40 pointer-events-none bg-gradient-to-t from-[#fcfcfc] via-[#fcfcfc] to-transparent flex flex-col justify-end items-center pb-4 z-20"
             >
               <motion.div 
                 animate={{ y: [0, 5, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                className="flex flex-col items-center gap-2 text-water-500/80"
+                className="flex flex-col items-center gap-2 text-water-500/80 pb-20 md:pb-0"
               >
                 <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Scroll</span>
                 <ArrowDown size={16} />
