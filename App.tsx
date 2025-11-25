@@ -16,7 +16,10 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    // Only show splash if it hasn't been shown in this session
+    return !sessionStorage.getItem('hasSeenSplash');
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   
@@ -82,7 +85,10 @@ const App: React.FC = () => {
       {/* Splash Loader */}
       <AnimatePresence>
         {showSplash && (
-          <SplashLoader key="splash" onComplete={() => setShowSplash(false)} />
+          <SplashLoader key="splash" onComplete={() => {
+            setShowSplash(false);
+            sessionStorage.setItem('hasSeenSplash', 'true');
+          }} />
         )}
       </AnimatePresence>
       
