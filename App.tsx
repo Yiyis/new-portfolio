@@ -8,6 +8,7 @@ import AboutPage from './components/About/AboutPage';
 import PasswordModal from './components/ui/PasswordModal';
 import ProjectDetailWrapper from './components/Project/ProjectDetailWrapper';
 import SplashLoader from './components/ui/SplashLoader';
+import NotFoundPage from './components/NotFound/NotFoundPage';
 import { motion, LayoutGroup, AnimatePresence } from 'framer-motion';
 
 const App: React.FC = () => {
@@ -136,8 +137,8 @@ const App: React.FC = () => {
 
       <main className="flex-grow relative flex items-center justify-center w-full h-screen">
         
-        {/* Decorative Background Text (Hidden on Project Detail view to keep it clean) */}
-        {!isProject && (
+        {/* Decorative Background Text (Show only on Home and About, hidden on Project and 404) */}
+        {(isHome || isAbout) && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden opacity-[0.03]">
                 <span className="text-[20vw] font-serif italic whitespace-nowrap">Portfolio</span>
             </div>
@@ -182,6 +183,7 @@ const App: React.FC = () => {
                   }
                   return true; // Allow navigation
                 }} />} />
+                <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </LayoutGroup>
           </div>
