@@ -45,7 +45,7 @@ const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, on
 
             <button 
               onClick={onViewProject}
-              className="group flex items-center space-x-2 text-xs uppercase tracking-widest font-bold text-slate-900 border-b border-transparent hover:border-water-500 transition-all pb-1 cursor-hover-trigger"
+              className="group relative z-50 flex items-center space-x-2 text-xs uppercase tracking-widest font-bold text-slate-900 border-b border-transparent hover:border-water-500 transition-all pb-1 cursor-hover-trigger py-4 md:py-0"
             >
               <span>View Project</span>
               <span className="transform group-hover:translate-x-1 transition-transform">→</span>

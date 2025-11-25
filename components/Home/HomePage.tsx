@@ -73,17 +73,17 @@ const HomePage: React.FC<HomePageProps> = ({
       </button>
 
       {/* Mobile Controls */}
-      <div className="md:hidden absolute bottom-28 left-0 w-full flex justify-between px-8 z-30">
+      <div className="md:hidden absolute bottom-28 left-0 w-full flex justify-between px-8 pointer-events-none">
          <button 
            onClick={onPrev} 
-           className="p-4 rounded-full bg-white/50 backdrop-blur-sm border border-slate-100 cursor-hover-trigger"
+           className="p-4 rounded-full bg-white/50 backdrop-blur-sm border border-slate-100 cursor-hover-trigger pointer-events-auto"
            aria-label="Previous Project"
          >
            <ArrowLeft size={20} className="text-slate-600" />
          </button>
          <button 
            onClick={onNext} 
-           className="p-4 rounded-full bg-white/50 backdrop-blur-sm border border-slate-100 cursor-hover-trigger"
+           className="p-4 rounded-full bg-white/50 backdrop-blur-sm border border-slate-100 cursor-hover-trigger pointer-events-auto"
            aria-label="Next Project"
          >
            <ArrowRight size={20} className="text-slate-600" />
