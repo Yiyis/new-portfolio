@@ -15,11 +15,11 @@ interface BlobProjectProps {
 
 const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, onViewProject, onNext, onPrev }) => {
   return (
-    <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 lg:gap-24 max-w-6xl mx-auto">
+    <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 md:gap-16 lg:gap-24 max-w-6xl mx-auto h-full md:h-auto justify-center">
       
       {/* Text Info - Left Side */}
       {/* We use a grid here so exiting and entering elements occupy the same space to prevent layout shift */}
-      <div className="order-2 md:order-1 flex-1 grid grid-cols-1 items-center md:items-start text-center md:text-left z-10 w-full">
+      <div className="order-2 md:order-1 flex-1 grid grid-cols-1 items-center md:items-start text-center md:text-left z-10 w-full px-4 md:px-0 mt-[-20px] md:mt-0">
         <AnimatePresence mode="popLayout" custom={direction}>
           <motion.div
              key={project._id}
@@ -30,7 +30,7 @@ const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, on
              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
              className="flex flex-col items-center md:items-start col-start-1 row-start-1 w-full"
           >
-            <div className="flex items-baseline space-x-3 mb-4">
+            <div className="flex items-baseline space-x-3 mt-2 mb-4 md:mt-0">
               <span className="text-water-400 font-sans text-lg font-medium">0{index + 1}</span>
               <span className="h-[1px] w-8 bg-slate-300"></span>
               <p className="text-xs uppercase tracking-[0.2em] text-slate-500 font-sans font-medium">
@@ -38,17 +38,17 @@ const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, on
               </p>
             </div>
 
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif italic text-slate-900 mb-6 leading-[0.9] tracking-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif italic text-slate-900 mb-4 md:mb-6 leading-[0.9] tracking-tight">
               {project.title}
             </h2>
             
-            <p className="text-slate-500 font-light font-sans text-sm md:text-lg leading-relaxed max-w-md mb-8">
+            <p className="text-slate-500 font-light font-sans text-sm md:text-lg leading-relaxed max-w-md mb-3 md:mb-8 mx-auto md:mx-0 line-clamp-3 md:line-clamp-none">
               {project.shortDescription}
             </p>
 
             <button 
               onClick={onViewProject}
-              className="group relative z-50 flex items-center space-x-2 text-xs uppercase tracking-widest font-bold text-slate-900 border-b border-transparent hover:border-water-500 transition-all pb-1 cursor-hover-trigger py-4 md:py-0"
+              className="group relative z-50 flex items-center space-x-2 text-xs uppercase tracking-widest font-bold text-slate-900 border-b border-transparent hover:border-water-500 transition-all pb-1 cursor-hover-trigger py-3 md:py-0 mx-auto md:mx-0"
             >
               <span>View Project</span>
               <span className="transform group-hover:translate-x-1 transition-transform">→</span>
@@ -85,7 +85,7 @@ const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, on
             The Container holds the 'animate-blob' class. 
             This ensures the masking shape is continuous and doesn't reset on slide change.
         */}
-        <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] animate-blob overflow-hidden bg-water-50 shadow-2xl">
+        <div className="relative w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] animate-blob overflow-hidden bg-water-50 shadow-2xl">
           
           <AnimatePresence initial={false} mode="popLayout" custom={direction}>
              <DistortedImage 
