@@ -60,7 +60,7 @@ export const getProject = async (slug: string): Promise<Project | null> => {
     role,
     year,
     isProtected,
-    fullDetails
+    projectDetails
   }`;
 
   try {

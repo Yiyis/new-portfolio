@@ -2,11 +2,48 @@ import React from 'react';
 import { Project } from '../../types';
 import { motion, LayoutGroup } from 'framer-motion';
 import { ArrowLeft, ArrowDown } from 'lucide-react';
+import { PortableText, PortableTextComponents } from '@portabletext/react';
+import { urlFor } from '../../services/sanityService';
 
 interface ProjectDetailProps {
   project: Project;
   onBack: () => void;
 }
+
+const components: PortableTextComponents = {
+  types: {
+    image: ({ value }) => {
+      return (
+        <div className="my-8">
+          <img
+            src={urlFor(value).width(1200).url()}
+            alt={value.alt || 'Project Image'}
+            className="w-full h-auto rounded-lg shadow-md"
+          />
+          {value.alt && (
+            <p className="text-center text-sm text-slate-500 mt-2 italic">{value.alt}</p>
+          )}
+        </div>
+      );
+    },
+  },
+  block: {
+    h1: ({ children }) => <h1 className="text-4xl font-serif italic mt-12 mb-6 text-slate-900">{children}</h1>,
+    h2: ({ children }) => <h2 className="text-3xl font-serif italic mt-10 mb-5 text-slate-800">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-2xl font-sans font-bold mt-8 mb-4 text-slate-800">{children}</h3>,
+    h4: ({ children }) => <h4 className="text-xl font-sans font-bold mt-6 mb-3 text-slate-700">{children}</h4>,
+    normal: ({ children }) => <p className="mb-6 text-slate-600 leading-relaxed">{children}</p>,
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-water-400 pl-6 py-2 my-8 italic text-xl text-slate-700 bg-slate-50 rounded-r-lg">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc list-outside ml-6 mb-6 text-slate-600 space-y-2">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal list-outside ml-6 mb-6 text-slate-600 space-y-2">{children}</ol>,
+  },
+};
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   return (
@@ -92,18 +129,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
                     </div>
                 </div>
 
-                {/* Detailed Content Placeholder */}
+                {/* Detailed Content */}
                 <div className="prose prose-lg prose-slate max-w-4xl mx-auto mt-16">
-                    <p>
-                        This is where the detailed project case study would go. It can include images, text, videos, and more.
-                        The hero image above transitions seamlessly from the home page blob.
-                    </p>
-                    <div className="w-full aspect-video bg-slate-100 rounded-lg my-8 flex items-center justify-center text-slate-400">
-                        Project Gallery / Video Placeholder
-                    </div>
-                    <p>
-                        More details about the process, challenges, and solution...
-                    </p>
+                  {project.projectDetails ? (
+                    <PortableText 
+                      value={project.projectDetails} 
+                      components={components}
+                    />
+                  ) : (
+                    <p className="text-slate-500 italic">No details available for this project.</p>
+                  )}
                 </div>
             </motion.div>
         </div>
