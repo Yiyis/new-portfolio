@@ -113,7 +113,11 @@ const App: React.FC = () => {
         
         {/* Logo - Centered */}
         <div className="absolute left-1/2 -translate-x-1/2 pointer-events-auto">
-          <button onClick={() => handleNavClick('/')} className="group cursor-hover-trigger">
+          <button 
+            onClick={() => handleNavClick('/')} 
+            className="group cursor-hover-trigger"
+            aria-label="Go to home page"
+          >
             <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center overflow-hidden rounded-full group-hover:opacity-80 transition-opacity duration-300">
                <img 
                  src="/images/logo_black.png" 

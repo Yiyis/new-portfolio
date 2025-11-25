@@ -67,6 +67,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpen, onClose, onSucces
               <button 
                 onClick={onClose}
                 className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-full hover:bg-slate-50 cursor-hover-trigger"
+                aria-label="Close modal"
               >
                 <X size={20} />
               </button>
