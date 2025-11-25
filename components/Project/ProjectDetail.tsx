@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Project } from '../../types';
-import { motion, LayoutGroup } from 'framer-motion';
+import { motion, LayoutGroup, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowDown, ExternalLink, ArrowRight } from 'lucide-react';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { urlFor } from '../../services/sanityService';
@@ -48,13 +48,34 @@ const components: PortableTextComponents = {
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   const navigate = useNavigate();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
   const handleNavigate = (slug: string) => {
     navigate(`/project/${slug}`);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollContainerRef.current) {
+        const scrollTop = scrollContainerRef.current.scrollTop;
+        // Hide indicator when scrolled more than 50px
+        setShowScrollIndicator(scrollTop < 50);
+      }
+    };
+
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      // Check initial state
+      handleScroll();
+      return () => container.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+
   return (
     <motion.div 
+      ref={scrollContainerRef}
       className="w-full h-full bg-[#fcfcfc] overflow-y-auto no-scrollbar relative z-50"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -86,20 +107,34 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
         </button>
       </div>
 
+      {/* Scroll Indicator - Centered relative to viewport, only visible at top */}
+      <AnimatePresence>
+        {showScrollIndicator && (
+          <motion.div 
+            className="fixed top-[calc(50vh-4rem)] lg:top-[calc(60vh-4rem)] left-0 right-0 z-20 flex flex-col items-center gap-2 text-white/80 mix-blend-difference pointer-events-none"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ 
+              opacity: { duration: 0.3 },
+              y: { 
+                duration: 0.8,
+                delay: 1,
+                repeat: Infinity,
+                repeatType: "reverse",
+                repeatDelay: 0.5
+              }
+            }}
+          >
+              <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Scroll</span>
+              <ArrowDown size={20} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Content Container - Scrolls over the hero */}
       <div className="relative z-10 mt-[50vh] lg:mt-[60vh] px-6 md:px-12 pb-24">
         
-        {/* Scroll Indicator */}
-        <motion.div 
-            className="absolute -top-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/80 mix-blend-difference pointer-events-none"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.5 }}
-        >
-            <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Scroll</span>
-            <ArrowDown size={20} />
-        </motion.div>
-
         <div className="max-w-7xl mx-auto bg-[#fcfcfc] p-8 md:p-16 rounded-t-3xl shadow-xl min-h-screen">
             <motion.div
                 initial={{ opacity: 0, y: 40 }}
