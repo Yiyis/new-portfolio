@@ -1,9 +1,10 @@
 import React from 'react';
 import { Project } from '../../types';
 import { motion, LayoutGroup } from 'framer-motion';
-import { ArrowLeft, ArrowDown, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowDown, ExternalLink, ArrowRight } from 'lucide-react';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { urlFor } from '../../services/sanityService';
+import { useNavigate } from 'react-router-dom';
 
 interface ProjectDetailProps {
   project: Project;
@@ -46,6 +47,12 @@ const components: PortableTextComponents = {
 };
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (slug: string) => {
+    navigate(`/project/${slug}`);
+  };
+
   return (
     <motion.div 
       className="w-full h-full bg-[#fcfcfc] overflow-y-auto no-scrollbar relative z-50"
@@ -150,6 +157,39 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
                     />
                   ) : (
                     <p className="text-slate-500 italic">No details available for this project.</p>
+                  )}
+                </div>
+
+                {/* Navigation Buttons */}
+                <div className="max-w-4xl mx-auto mt-24 pt-12 border-t border-slate-200 flex justify-between items-center">
+                  {project.prevProject && (
+                    <button
+                      onClick={() => handleNavigate(project.prevProject!.slug.current)}
+                      className="group flex flex-col items-start gap-2 text-left"
+                    >
+                      <span className="text-xs uppercase tracking-widest text-slate-400 group-hover:text-water-600 transition-colors flex items-center gap-2">
+                        <ArrowLeft size={12} className="transform group-hover:-translate-x-1 transition-transform" />
+                        Previous Project
+                      </span>
+                      <span className="font-serif italic text-xl md:text-2xl text-slate-800 group-hover:text-water-800 transition-colors">
+                        {project.prevProject.title}
+                      </span>
+                    </button>
+                  )}
+                  
+                  {project.nextProject && (
+                    <button
+                      onClick={() => handleNavigate(project.nextProject!.slug.current)}
+                      className="group flex flex-col items-end gap-2 text-right ml-auto"
+                    >
+                      <span className="text-xs uppercase tracking-widest text-slate-400 group-hover:text-water-600 transition-colors flex items-center gap-2">
+                        Next Project
+                        <ArrowRight size={12} className="transform group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <span className="font-serif italic text-xl md:text-2xl text-slate-800 group-hover:text-water-800 transition-colors">
+                        {project.nextProject.title}
+                      </span>
+                    </button>
                   )}
                 </div>
             </motion.div>

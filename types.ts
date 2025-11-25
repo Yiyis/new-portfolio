@@ -23,6 +23,14 @@ export interface Project {
   role: string;
   year: number;
   externalUrl?: string;
+  nextProject?: {
+    title: string;
+    slug: { current: string };
+  };
+  prevProject?: {
+    title: string;
+    slug: { current: string };
+  };
 }
 
 export interface SiteSettings {

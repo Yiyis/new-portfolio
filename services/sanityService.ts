@@ -62,7 +62,15 @@ export const getProject = async (slug: string): Promise<Project | null> => {
     year,
     isProtected,
     projectDetails,
-    externalUrl
+    externalUrl,
+    "nextProject": coalesce(
+      *[_type == "project" && _createdAt < ^._createdAt] | order(_createdAt desc)[0] { title, slug },
+      *[_type == "project"] | order(_createdAt desc)[0] { title, slug }
+    ),
+    "prevProject": coalesce(
+      *[_type == "project" && _createdAt > ^._createdAt] | order(_createdAt asc)[0] { title, slug },
+      *[_type == "project"] | order(_createdAt asc)[0] { title, slug }
+    )
   }`;
 
   try {
