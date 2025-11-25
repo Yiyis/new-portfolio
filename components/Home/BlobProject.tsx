@@ -31,7 +31,7 @@ const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, on
               <span className="text-water-400 font-sans text-lg font-medium">0{index + 1}</span>
               <span className="h-[1px] w-8 bg-slate-300"></span>
               <p className="text-xs uppercase tracking-[0.2em] text-slate-500 font-sans font-medium">
-                {project.tags?.join(' & ') || ''}
+                {project.tags?.join(' | ') || ''}
               </p>
             </div>
 
