@@ -2,7 +2,7 @@ import React from 'react';
 import { Project } from '../../types';
 import BlobProject from './BlobProject';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useDragControls } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 interface HomePageProps {
@@ -33,6 +33,15 @@ const HomePage: React.FC<HomePageProps> = ({
     }
   };
 
+  const onDragEnd = (event: any, info: any) => {
+    const threshold = 50; // Minimum drag distance to trigger change
+    if (info.offset.x < -threshold) {
+      onNext();
+    } else if (info.offset.x > threshold) {
+      onPrev();
+    }
+  };
+
   return (
     <motion.div 
       key="home"
@@ -41,6 +50,13 @@ const HomePage: React.FC<HomePageProps> = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: showSplash ? 0 : 0.3 }}
+      // Enable drag only on mobile (technically works on desktop too but less common for full page swipes)
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.2}
+      onDragEnd={onDragEnd}
+      // Prevent drag from interfering with clicks if movement is small
+      dragListener={true} 
     >
       {/* Previous Button */}
       <button 
@@ -59,6 +75,8 @@ const HomePage: React.FC<HomePageProps> = ({
           index={currentIndex}
           direction={direction} 
           onViewProject={handleViewProject}
+          onNext={onNext}
+          onPrev={onPrev}
         />
       </div>
 
@@ -72,24 +90,8 @@ const HomePage: React.FC<HomePageProps> = ({
         <span className="text-xs uppercase tracking-widest text-slate-400 group-hover:text-water-600 transition-colors duration-300">Next</span>
       </button>
 
-      {/* Mobile Controls */}
-      <div className="md:hidden absolute bottom-28 left-0 w-full flex justify-between px-8 pointer-events-none">
-         <button 
-           onClick={onPrev} 
-           className="p-4 rounded-full bg-white/50 backdrop-blur-sm border border-slate-100 cursor-hover-trigger pointer-events-auto"
-           aria-label="Previous Project"
-         >
-           <ArrowLeft size={20} className="text-slate-600" />
-         </button>
-         <button 
-           onClick={onNext} 
-           className="p-4 rounded-full bg-white/50 backdrop-blur-sm border border-slate-100 cursor-hover-trigger pointer-events-auto"
-           aria-label="Next Project"
-         >
-           <ArrowRight size={20} className="text-slate-600" />
-         </button>
-      </div>
-
+      {/* Mobile Controls - Removed as they are now integrated into BlobProject */}
+      
       {/* Progress Indicator */}
       <div className="absolute bottom-20 md:bottom-10 left-1/2 -translate-x-1/2 flex space-x-2 z-30">
         {projects.map((_, idx) => (

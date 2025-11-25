@@ -2,15 +2,18 @@ import React from 'react';
 import { Project } from '../../types';
 import { motion, AnimatePresence } from 'framer-motion';
 import DistortedImage from './DistortedImage';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface BlobProjectProps {
   project: Project;
   direction: number; // -1 for prev, 1 for next
   index: number;
   onViewProject: () => void;
+  onNext?: () => void;
+  onPrev?: () => void;
 }
 
-const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, onViewProject }) => {
+const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, onViewProject, onNext, onPrev }) => {
   return (
     <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 lg:gap-24 max-w-6xl mx-auto">
       
@@ -55,7 +58,29 @@ const BlobProject: React.FC<BlobProjectProps> = ({ project, direction, index, on
       </div>
 
       {/* Blob - Right Side */}
-      <div className="order-1 md:order-2 flex-1 flex justify-center items-center w-full">
+      <div className="order-1 md:order-2 flex-1 flex justify-center items-center w-full relative">
+        
+        {/* Mobile Navigation Controls */}
+        {onPrev && (
+          <button 
+            onClick={onPrev}
+            className="md:hidden absolute left-0 z-40 p-4 text-slate-400 hover:text-water-600 transition-colors cursor-hover-trigger"
+            aria-label="Previous Project"
+          >
+             <ArrowLeft size={24} />
+          </button>
+        )}
+
+        {onNext && (
+          <button 
+            onClick={onNext}
+            className="md:hidden absolute right-0 z-40 p-4 text-slate-400 hover:text-water-600 transition-colors cursor-hover-trigger"
+            aria-label="Next Project"
+          >
+             <ArrowRight size={24} />
+          </button>
+        )}
+
         {/* 
             The Container holds the 'animate-blob' class. 
             This ensures the masking shape is continuous and doesn't reset on slide change.
