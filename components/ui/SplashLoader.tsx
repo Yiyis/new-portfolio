@@ -68,14 +68,28 @@ const SplashLoader: React.FC<SplashLoaderProps> = ({ onComplete }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1F6AA5]"
-      initial={{ y: 0, opacity: 1 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: "-100%", opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050A19]"
+      initial={{ y: 0 }}
+      animate={{ y: 0 }}
+      exit={{ 
+        y: "-100%",
+        transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1], delay: 0.2 }
+      }}
       transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      style={{ 
+        willChange: 'transform',
+      }}
     >
       {animationReady && LottieComponent && animationData ? (
-        <div className="flex flex-col items-center justify-center">
+        <motion.div 
+          className="flex flex-col items-center justify-center"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ 
+            opacity: 0,
+            transition: { duration: 0.3, ease: "easeIn" }
+          }}
+        >
           <div className="w-full max-w-[500px] aspect-[3/2] relative">
             <LottieComponent
               lottieRef={lottieRef}
@@ -104,13 +118,21 @@ const SplashLoader: React.FC<SplashLoaderProps> = ({ onComplete }) => {
           >
             Hi, my name is Yiyi
           </motion.div>
-        </div>
+        </motion.div>
       ) : (
         // Lightweight placeholder - shows immediately for better LCP
-        <div className="flex flex-col items-center gap-4">
+        <motion.div 
+          className="flex flex-col items-center gap-4"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ 
+            opacity: 0,
+            transition: { duration: 0.3, ease: "easeIn" }
+          }}
+        >
           <div className="w-12 h-12 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
           <p className="text-sm text-white/70">Loading...</p>
-        </div>
+        </motion.div>
       )}
     </motion.div>
   );
