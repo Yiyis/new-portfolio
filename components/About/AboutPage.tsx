@@ -30,10 +30,14 @@ const AboutPage: React.FC = () => {
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showIndicator, setShowIndicator] = useState(false);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const checkScroll = () => {
     if (scrollRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+      setScrollTop(scrollTop);
+      
       // Show indicator if content overflows and we are not at the bottom (with 20px buffer)
       if (scrollHeight > clientHeight && scrollTop + clientHeight < scrollHeight - 20) {
         setShowIndicator(true);
@@ -44,17 +48,44 @@ const AboutPage: React.FC = () => {
   };
 
   useEffect(() => {
-    checkScroll();
-    window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      checkScroll();
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Calculate scale factor based on scroll (for mobile)
+  // Scales down from 1.0 to 0.6 over 300px of scroll
+  const scaleFactor = isMobile ? Math.max(0.6, 1 - scrollTop / 300) : 1;
 
   return (
     <div className="w-full h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 lg:gap-24 max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-0">
       
       {/* Blob - Left Side */}
-      <div className="order-1 flex-1 flex justify-center items-center w-full">
-        <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px] animate-blob overflow-hidden bg-water-50 shadow-2xl">
+      <motion.div 
+        className="order-1 flex justify-center items-center w-full md:flex-1"
+        animate={{
+          height: isMobile ? "auto" : "100%",
+          flex: isMobile ? "none" : 1
+        }}
+      >
+        <motion.div 
+          className="relative animate-blob overflow-hidden bg-water-50 shadow-2xl"
+          animate={{
+            width: isMobile ? 300 * scaleFactor : 450, // Base sizes for mobile/desktop
+            height: isMobile ? 300 * scaleFactor : 450,
+          }}
+          style={{
+            // Use transform for smoother performance if possible, but width/height required for layout flow
+            // We'll stick to width/height for flow since we want the text to move up
+            width: isMobile ? 300 : undefined, 
+            height: isMobile ? 300 : undefined 
+          }}
+        >
            <DistortedImage 
              src={profileImage} 
              alt="Yiyi Shao" 
@@ -62,8 +93,8 @@ const AboutPage: React.FC = () => {
              disableShader={true}
            />
            <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.1)] pointer-events-none rounded-[inherit] z-20"></div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Text Info - Right Side (Scrollable with Indicator) */}
       <div className="order-2 flex-1 w-full h-full md:h-[70vh] relative min-h-0">
