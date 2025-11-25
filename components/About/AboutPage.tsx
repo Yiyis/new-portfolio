@@ -3,6 +3,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import DistortedImage from '../Home/DistortedImage';
 import { ArrowDown } from 'lucide-react';
 
+const Highlight: React.FC<{ children: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => (
+  <motion.span
+    className="relative inline-block text-water-900 font-medium px-1 mx-0.5"
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-10%" }}
+  >
+    <motion.span
+      className="absolute inset-0 bg-water-400/30 rounded -z-10"
+      initial={{ width: "0%" }}
+      variants={{
+        visible: { 
+          width: "100%",
+          transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay }
+        }
+      }}
+    />
+    {children}
+  </motion.span>
+);
+
 const AboutPage: React.FC = () => {
   // Profile image
   const profileImage = "/images/Yiyi.jpg";
@@ -62,14 +83,12 @@ const AboutPage: React.FC = () => {
 
             <div className="prose prose-slate prose-lg font-sans font-light text-slate-600 space-y-6 mb-12 text-center md:text-left">
               <p>
-                Hi! I’m Yiyi, a developer with a background in design and arts, originally from China and now based in downtown Toronto. I love using a range of programming tools and digital media to craft simple, effective solutions to complex problems. My focus is on building visually appealing, intuitive web applications that align with user needs.
-              </p>
+              Hi, I'm Yiyi — a UI/UX & Frontend Developer who blends <Highlight delay={0.2}>design intuition</Highlight> with <Highlight delay={0.6}>engineering discipline</Highlight> to create digital experiences that feel effortless.              </p>
               <p>
-                With a multidisciplinary approach, I combine my expertise in design, programming, and digital media to deliver creative, efficient solutions. I’ve also contributed to research projects, reflecting my passion for innovation and advancing knowledge in the tech space.
-              </p>
+              Trained in design and arts, I approach every project with a multidisciplinary lens, moving fluidly from user research, UX flows, and interface design to clean, scalable front-end implementation. I’m passionate about crafting interfaces where clarity, accessibility, and performance come together.              </p>
               <p>
-                When I’m not coding, I’m a devoted dog mom who loves outdoor adventures like rock climbing, diving, hiking, and camping. I’m also a certified PADI Open Water Diver and AIDA 2 Freediver.
-              </p>
+              My background spans interactive media, creative coding, and academic research, giving me a unique perspective on how humans connect with technology — and how thoughtful design can make that interaction meaningful.              </p>
+              <p>Outside of work, I’m a devoted dog mom and an outdoor enthusiast — usually found rock climbing, hiking, or exploring the water as a PADI Open Water Diver and AIDA 2 Freediver.</p>
             </div>
 
             {/* Section: Exhibits */}
