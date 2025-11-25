@@ -61,6 +61,10 @@ const CustomCursor: React.FC = () => {
       style={{
         x: cursorXSpring,
         y: cursorYSpring,
+        // Adjust position to center the ring around the pointer tip (assuming default cursor is top-left aligned)
+        // But since we track e.clientX/Y - 16, it's already centered on the coordinate.
+        // If we want the ring to surround the default cursor which points to (0,0) of its bounding box,
+        // centering the ring on the mouse position is the correct behavior.
       }}
       initial={{
         scale: 1,
