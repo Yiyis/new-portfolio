@@ -114,7 +114,7 @@ const AboutPage: React.FC = () => {
 
             <div className="prose prose-slate prose-lg font-sans font-light text-slate-600 space-y-6 mb-12 text-center md:text-left">
               <p>
-              Hi, I'm Yiyi — a UI/UX & Frontend Developer who blends <Highlight delay={0.2}>design intuition</Highlight> with <Highlight delay={0.6}>engineering discipline</Highlight> to create digital experiences that feel effortless.              </p>
+              Hi, I'm Yiyi — a Design-Driven Full-Stack Developer who blends <Highlight delay={0.2}>design intuition</Highlight> with <Highlight delay={0.6}>engineering discipline</Highlight> to create digital experiences that feel effortless.              </p>
               <p>
               Trained in design and arts, I approach every project with a multidisciplinary lens, moving fluidly from user research, UX flows, and interface design to clean, scalable front-end implementation. I’m passionate about crafting interfaces where clarity, accessibility, and performance come together.              </p>
               <p>

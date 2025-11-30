@@ -141,7 +141,7 @@ Private project - All rights reserved
 ## 👤 Author
 
 **Yiyi Shao**
-- UI/UX & Frontend Developer
+- Design-Driven Full-Stack Developer
 - Portfolio: [Your Portfolio URL]
 
 ---

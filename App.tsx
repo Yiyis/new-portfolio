@@ -205,7 +205,7 @@ const App: React.FC = () => {
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
         >
             <div className="pointer-events-auto order-2 md:order-1 mt-2 md:mt-0 text-center md:text-left">
-                <span>UI/UX & Frontend Developer</span>
+                <span>Design-Driven Full-Stack Developer</span>
             </div>
             <div className="pointer-events-auto flex space-x-6 order-1 md:order-2">
                 <a href="https://www.linkedin.com/in/yiyishao/" target="_blank" rel="noopener noreferrer" className="hover:text-water-600 transition-colors cursor-hover-trigger">Linkedin</a>
